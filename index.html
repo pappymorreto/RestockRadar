@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RestockRadar &mdash; Multi-Source Product Scraper</title>
+<meta name="description" content="A multi-source new-product scraper: Python scrapers, MySQL, PHP admin dashboard and REST API for a mobile app.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--panel:#131722;--panel2:#171c28;--border:#232a3a;--ink:#e6e9f0;
+  --muted:#8b93a7;--faint:#5b6478;--green:#22c55e;--teal:#2dd4bf;--blue:#5b8def}
+*{box-sizing:border-box;margin:0;padding:0;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+body{background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--teal);text-decoration:none}
+.wrap{max-width:1000px;margin:0 auto;padding:56px 24px 80px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:15px;letter-spacing:.5px;margin-bottom:30px}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+h1{font-size:38px;font-weight:700;letter-spacing:-.8px;line-height:1.15;margin-bottom:14px}
+h1 .g{color:var(--teal)}
+.lead{font-size:17px;color:var(--muted);max-width:680px;margin-bottom:22px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.badge{background:var(--panel2);border:1px solid var(--border);border-radius:20px;
+  padding:5px 13px;font-size:12.5px;font-weight:600;color:var(--ink)}
+.note{font-size:13px;color:var(--faint);margin-bottom:40px}
+.demos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:46px}
+@media(max-width:760px){.demos{grid-template-columns:1fr}}
+.demo{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  transition:border-color .15s,transform .15s;display:block}
+.demo:hover{border-color:var(--teal);transform:translateY(-2px)}
+.demo img{width:100%;display:block;border-bottom:1px solid var(--border)}
+.demo .cap{padding:14px 16px}
+.demo .cap .t{font-weight:700;color:var(--ink);font-size:15px}
+.demo .cap .d{color:var(--muted);font-size:13px;margin-top:3px}
+.demo .cap .go{color:var(--teal);font-size:13px;font-weight:600;margin-top:8px;display:inline-block}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--faint);
+  font-weight:700;margin:0 0 16px}
+ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:11px 28px;margin-bottom:44px}
+@media(max-width:760px){ul{grid-template-columns:1fr}}
+li{position:relative;padding-left:22px;color:var(--ink);font-size:14.5px}
+li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:2px;background:var(--green)}
+li b{color:var(--ink)} li span{color:var(--muted)}
+.foot{border-top:1px solid var(--border);padding-top:22px;display:flex;flex-wrap:wrap;gap:10px 26px;
+  align-items:center;font-size:14px;color:var(--muted)}
+.btn{background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:9px 15px;
+  font-weight:600;color:var(--ink)}
+.btn:hover{border-color:var(--teal)}
+</style></head>
+<body><div class="wrap">
+
+<div class="brand"><span class="dot"></span>RESTOCKRADAR</div>
+
+<h1>Multi-source <span class="g">product scraper</span><br>built for speed &amp; reliability</h1>
+<p class="lead">A backend system that monitors multiple e-commerce sites and surfaces newly-listed
+products with minimal delay &mdash; Python scrapers feeding a MySQL store, managed through a PHP
+admin dashboard and exposed to a mobile app via a REST API.</p>
+
+<div class="badges">
+  <span class="badge">Python</span><span class="badge">Web Scraping</span>
+  <span class="badge">MySQL</span><span class="badge">PHP 8</span>
+  <span class="badge">REST API</span><span class="badge">PDO</span>
+</div>
+<p class="note">Self-initiated demonstration project &middot; fictional source sites &amp; seeded demo data.</p>
+
+<div class="demos">
+  <a class="demo" href="admin/preview.html">
+    <img src="screenshots/dashboard.png" alt="Admin dashboard">
+    <div class="cap"><div class="t">Admin dashboard</div>
+      <div class="d">Live finds, per-source health, detection-lag KPIs.</div>
+      <span class="go">Open live page &rarr;</span></div>
+  </a>
+  <a class="demo" href="admin/architecture.html">
+    <img src="screenshots/architecture.png" alt="System architecture">
+    <div class="cap"><div class="t">System architecture</div>
+      <div class="d">Python &rarr; MySQL &rarr; PHP / API &rarr; mobile app.</div>
+      <span class="go">Open live page &rarr;</span></div>
+  </a>
+</div>
+
+<h2>What it demonstrates</h2>
+<ul>
+  <li><b>One adapter per source</b> <span>&mdash; a markup change on one site never breaks the fleet</span></li>
+  <li><b>Resilient scraping</b> <span>&mdash; rotating proxies, retry/backoff, per-source circuit breaker</span></li>
+  <li><b>Loud failure on drift</b> <span>&mdash; parsers fingerprint the page so alerts name the source</span></li>
+  <li><b>Fast new-product detection</b> <span>&mdash; UNIQUE(dedup_key) one-write upserts</span></li>
+  <li><b>PHP admin dashboard</b> <span>&mdash; finds, source health and KPIs over PDO</span></li>
+  <li><b>Token-authed REST API</b> <span>&mdash; cursor pagination for cheap "what's new" polling</span></li>
+</ul>
+
+<div class="foot">
+  <a class="btn" href="https://github.com/pappymorreto/RestockRadar">View source on GitHub</a>
+  <span>Python &middot; MySQL (InnoDB) &middot; PHP 8 &middot; REST/JSON</span>
+</div>
+
+</div></body></html>

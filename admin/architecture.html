@@ -1,10 +1,13 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RestockRadar &mdash; System Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0e14;--panel:#131722;--panel2:#171c28;--border:#232a3a;--ink:#e6e9f0;
   --muted:#8b93a7;--faint:#5b6478;--green:#22c55e;--teal:#2dd4bf;--amber:#f5a623;
   --red:#ef4444;--blue:#5b8def;--purple:#a855f7}
-*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
 .head{display:flex;align-items:center;gap:11px;margin-bottom:6px}
 .head .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
@@ -30,14 +33,14 @@ body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
 .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
 </style></head>
 <body>
-<div class="head"><span class="dot"></span><h1>RestockRadar — System Architecture</h1></div>
-<div class="sub">Multi-source product monitor · optimised for speed from listing to end-user notification</div>
+<div class="head"><span class="dot"></span><h1>RestockRadar &mdash; System Architecture</h1></div>
+<div class="sub">Multi-source product monitor &middot; optimised for speed from listing to end-user notification</div>
 
 <div class="flow">
   <div class="col">
     <div class="card">
       <div class="ttl"><span class="b" style="background:var(--faint)"></span>Source sites</div>
-      <div class="lead">9–11 e-commerce &amp; marketplace sites. Mixed HTML listings and JSON endpoints, each with its own quirks and bot defenses.</div>
+      <div class="lead">9&ndash;11 e-commerce &amp; marketplace sites. Mixed HTML listings and JSON endpoints, each with its own quirks and bot defenses.</div>
     </div>
   </div>
 
@@ -54,7 +57,7 @@ body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
         <span class="chip">Markup-change detection</span>
         <span class="chip">New-product dedup</span>
       </div>
-      <div class="tech">Python · requests · selectolax</div>
+      <div class="tech">Python &middot; requests &middot; selectolax</div>
     </div>
   </div>
 
@@ -64,12 +67,12 @@ body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
     <div class="card db">
       <div class="ttl"><span class="b" style="background:var(--blue)"></span>MySQL</div>
       <div class="lead">
-        <b>products</b> · UNIQUE(dedup_key)<br>
-        <b>sources</b> · config + health<br>
-        <b>scrape_runs</b> · telemetry
+        <b>products</b> &middot; UNIQUE(dedup_key)<br>
+        <b>sources</b> &middot; config + health<br>
+        <b>scrape_runs</b> &middot; telemetry
       </div>
       <div class="small">Indexed newest-first feed; one-write upserts for the hot path.</div>
-      <div class="tech">MySQL · InnoDB</div>
+      <div class="tech">MySQL &middot; InnoDB</div>
     </div>
   </div>
 
@@ -80,12 +83,12 @@ body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
       <div class="card">
         <div class="ttl"><span class="b" style="background:var(--purple)"></span>PHP admin</div>
         <div class="lead">Operator dashboard: live finds, source health, KPIs, source management.</div>
-        <div class="tech">PHP · PDO</div>
+        <div class="tech">PHP &middot; PDO</div>
       </div>
       <div class="card">
         <div class="ttl"><span class="b" style="background:var(--amber)"></span>PHP REST API</div>
-        <div class="lead">JSON feed · token auth · cursor pagination by first_seen.</div>
-        <div class="tech">PHP · REST</div>
+        <div class="lead">JSON feed &middot; token auth &middot; cursor pagination by first_seen.</div>
+        <div class="tech">PHP &middot; REST</div>
       </div>
     </div>
   </div>
@@ -100,7 +103,7 @@ body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
       </div>
       <div class="card">
         <div class="ttl"><span class="b" style="background:var(--green)"></span>Push worker</div>
-        <div class="lead">Flags unnotified finds → instant alerts.</div>
+        <div class="lead">Flags unnotified finds &rarr; instant alerts.</div>
       </div>
     </div>
   </div>
