@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+:root{--bg:#0b0e14;--panel:#131722;--panel2:#171c28;--border:#232a3a;--ink:#e6e9f0;
+  --muted:#8b93a7;--faint:#5b6478;--green:#22c55e;--teal:#2dd4bf;--amber:#f5a623;
+  --red:#ef4444;--blue:#5b8def;--purple:#a855f7}
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:var(--bg);color:var(--ink);padding:34px 38px;width:1300px}
+.head{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.head .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+.head h1{font-size:22px;font-weight:700;letter-spacing:.3px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:26px;margin-left:21px}
+.flow{display:flex;align-items:stretch;gap:0}
+.col{display:flex;flex-direction:column;gap:14px;justify-content:center;flex:1}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--faint);
+  font-size:26px;width:42px;flex:none}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:15px 16px}
+.card .ttl{font-size:11px;text-transform:uppercase;letter-spacing:.8px;font-weight:700;
+  display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.card .ttl .b{width:9px;height:9px;border-radius:3px}
+.card .lead{font-size:12.5px;color:var(--muted);line-height:1.5}
+.chip{display:inline-block;background:var(--panel2);border:1px solid var(--border);
+  border-radius:7px;padding:6px 9px;font-size:11.5px;color:var(--ink);margin:3px 3px 0 0;font-weight:500}
+.tech{margin-top:11px;font-size:10.5px;letter-spacing:.5px;font-weight:700;color:var(--teal);text-transform:uppercase}
+.db{background:linear-gradient(180deg,#16203a,#131722);border-color:#2b3a5e}
+.small{font-size:11.5px;color:var(--faint);margin-top:7px;line-height:1.5}
+.stack{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center}
+.legend{margin-top:26px;display:flex;gap:22px;color:var(--faint);font-size:11.5px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+</style></head>
+<body>
+<div class="head"><span class="dot"></span><h1>RestockRadar — System Architecture</h1></div>
+<div class="sub">Multi-source product monitor · optimised for speed from listing to end-user notification</div>
+
+<div class="flow">
+  <div class="col">
+    <div class="card">
+      <div class="ttl"><span class="b" style="background:var(--faint)"></span>Source sites</div>
+      <div class="lead">9–11 e-commerce &amp; marketplace sites. Mixed HTML listings and JSON endpoints, each with its own quirks and bot defenses.</div>
+    </div>
+  </div>
+
+  <div class="arrow">&rarr;</div>
+
+  <div class="col">
+    <div class="card">
+      <div class="ttl"><span class="b" style="background:var(--green)"></span>Python scraper fleet</div>
+      <div>
+        <span class="chip">Per-source adapters</span>
+        <span class="chip">Rotating proxies + headers</span>
+        <span class="chip">Retry / backoff + jitter</span>
+        <span class="chip">Per-source circuit breaker</span>
+        <span class="chip">Markup-change detection</span>
+        <span class="chip">New-product dedup</span>
+      </div>
+      <div class="tech">Python · requests · selectolax</div>
+    </div>
+  </div>
+
+  <div class="arrow">&rarr;</div>
+
+  <div class="col" style="flex:.85">
+    <div class="card db">
+      <div class="ttl"><span class="b" style="background:var(--blue)"></span>MySQL</div>
+      <div class="lead">
+        <b>products</b> · UNIQUE(dedup_key)<br>
+        <b>sources</b> · config + health<br>
+        <b>scrape_runs</b> · telemetry
+      </div>
+      <div class="small">Indexed newest-first feed; one-write upserts for the hot path.</div>
+      <div class="tech">MySQL · InnoDB</div>
+    </div>
+  </div>
+
+  <div class="arrow">&rarr;</div>
+
+  <div class="col" style="flex:1.05">
+    <div class="stack">
+      <div class="card">
+        <div class="ttl"><span class="b" style="background:var(--purple)"></span>PHP admin</div>
+        <div class="lead">Operator dashboard: live finds, source health, KPIs, source management.</div>
+        <div class="tech">PHP · PDO</div>
+      </div>
+      <div class="card">
+        <div class="ttl"><span class="b" style="background:var(--amber)"></span>PHP REST API</div>
+        <div class="lead">JSON feed · token auth · cursor pagination by first_seen.</div>
+        <div class="tech">PHP · REST</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">&rarr;</div>
+
+  <div class="col" style="flex:.9">
+    <div class="stack">
+      <div class="card">
+        <div class="ttl"><span class="b" style="background:var(--teal)"></span>Mobile app</div>
+        <div class="lead">End users get new products the moment they're detected.</div>
+      </div>
+      <div class="card">
+        <div class="ttl"><span class="b" style="background:var(--green)"></span>Push worker</div>
+        <div class="lead">Flags unnotified finds → instant alerts.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <span><i style="background:var(--green)"></i>Python</span>
+  <span><i style="background:var(--blue)"></i>MySQL</span>
+  <span><i style="background:var(--purple)"></i>PHP / Admin</span>
+  <span><i style="background:var(--amber)"></i>REST API</span>
+  <span><i style="background:var(--teal)"></i>Mobile delivery</span>
+</div>
+</body></html>
